@@ -57,7 +57,7 @@ jobs:
         run: docker push chai219/${{ inputs.image_name }}:latest
       - name: building image 
         run: |
-          pwsh -command 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/chaithragudimalla/Project/main/.github/workflows/Dockerfile" -OutFile "Dockerfile"'
+          pwsh -command 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/GithubActions-Group-Project/DevOps-Workflows/feature/.github/workflows/Dockerfile" -OutFile "Dockerfile"'
       - name: building docker image
         run: |
            ls -l
@@ -66,7 +66,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
            name: 'Dockerfile'
-           path: /home/runner/work/Project/Project/Dockerfile
+           path: /home/runner/work/DevOps-Workflows/DevOps-Workflows/Dockerfile
       - name: uploading to jFrog
         run: echo 'jfrog'
       - uses: actions/checkout@v3
