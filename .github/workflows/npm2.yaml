@@ -1,0 +1,58 @@
+name: nodejs pipeline
+on:
+ workflow_call:
+    inputs:
+       image_name:
+           type: string
+           required: true
+    secrets:
+        registry_username:
+             required: true
+        registry_password:
+             required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: downloading the Dockerfile
+        run: pwsh -command 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/chaithragudimalla/Project/main/.github/workflows/Dockerfile" -OutFile "Dockerfile"'
+      - name: building the dockerfile
+        run: |
+           docker build -t nodejs:latest
+           docker container run nodejs:latest
+      - name: Install dependencies
+        run: echo "npm run build"
+      - name: Run test
+        run: echo "npm run test"
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: login
+        run: echo "login success"
+      - name: tag
+        run:  docker tag ${{ inputs.image_name }} chai219/${{ inputs.image_name }}:latest
+      - name: push
+        run: docker push chai219/${{ inputs.image_name }}:latest
+      - name: building image 
+        run: |
+          pwsh -command 'Invoke-WebRequest -Uri "https://raw.githubusercontent.com/chaithragudimalla/Project/main/.github/workflows/Dockerfile" -OutFile "Dockerfile"'
+      - name: building docker image
+        run: |
+           ls -l
+           readlink -f Dockerfile
+      - name: github uploading
+        uses: actions/upload-artifact@v3
+        with:
+           name: 'Dockerfile'
+           path: /home/runner/work/Project/Project/Dockerfile
+      - name: uploading to jFrog
+        run: echo 'jfrog'
+    
+  
+      
