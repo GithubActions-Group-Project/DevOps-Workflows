@@ -6,7 +6,6 @@ on:
           - feature
           - develop
   
-  
 jobs:
   inputs:
      uses: chaithragudimalla/Project/.github/workflows/pipelineconfig.yaml@main
