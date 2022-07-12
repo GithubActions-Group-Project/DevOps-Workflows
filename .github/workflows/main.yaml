@@ -90,16 +90,22 @@ jobs:
     needs: [Quality-Gates]
     runs-on: ubuntu-latest
     environment: 
-      name: Development 
+      name: Development
     steps:
        - uses: actions/checkout@v3
        - name: deploying
          run: echo 'feature branch'
+       - name: extract git commit data
+         uses: rlespinasse/git-commit-data-action@v1.x
+       - name: Update author information
+         run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
        - name: Raise PR 
          uses: peter-evans/create-pull-request@v3
          with:
            branch: "develop"
            base: feature
+           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
+           author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
            title: "auto PR from ${{ github.ref }} into develop"
            body:
              PR creation
