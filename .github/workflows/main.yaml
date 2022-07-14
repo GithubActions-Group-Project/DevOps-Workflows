@@ -20,7 +20,7 @@ jobs:
   check1:
     needs: inputs
     if: "contains(needs.inputs.outputs.buildTool, 'npm') && contains(needs.inputs.outputs.language, 'java') && contains(needs.inputs.outputs.javaVersion, 1.8)"
-    uses: GithubActions-Group-Project/Project/.github/workflows/maven.yaml@main
+    uses: GithubActions-Group-Project/Project/.github/workflows/npm.yaml@main
     with:
       image_name: ubuntu
     secrets:
