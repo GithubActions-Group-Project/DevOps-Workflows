@@ -9,13 +9,15 @@ on:
 jobs:
   inputs:
      uses: GithubActions-Group-Project/Project/.github/workflows/pipelineconfig.yaml@main
-     
+     with:
+       token: ${{ secrets.GITHUB_TOKEN }}
   check:
      needs: inputs
      if: "contains(needs.inputs.outputs.buildTool, 'maven')"
      uses: GithubActions-Group-Project/Project/.github/workflows/maven.yaml@main    
      with:
         dockerImage: ubuntu
+        token: ${{ secrets.GITHUB_TOKEN }}
         
   check1:
     needs: inputs
@@ -26,6 +28,7 @@ jobs:
     secrets:
        registry_username: ${{ secrets.REGISTRY_USERNAME }}
        registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+       token: ${{ secrets.GITHUB_TOKEN }}
   check2:
     needs: inputs
     if: "contains(needs.inputs.outputs.buildTool, 'ng') && contains(needs.inputs.outputs.language, 'java') && contains(needs.inputs.outputs.javaVersion, 1.8)"
@@ -35,6 +38,7 @@ jobs:
     secrets:
        registry_username: ${{ secrets.REGISTRY_USERNAME }}
        registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+       token: ${{ secrets.GITHUB_TOKEN }}
        
   check3:
     needs: inputs
@@ -42,6 +46,7 @@ jobs:
     uses: GithubActions-Group-Project/Project/.github/workflows/ng.yaml@main
     with:
         dockerImage: ubuntu
+        token: ${{ secrets.GITHUB_TOKEN }}
         
   Code-Quality:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
