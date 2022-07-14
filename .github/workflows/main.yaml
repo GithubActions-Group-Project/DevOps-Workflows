@@ -8,12 +8,12 @@ on:
   workflow_dispatch:
 jobs:
   inputs:
-     uses: chaithragudimalla/Project/.github/workflows/pipelineconfig.yaml@main
+     uses: GithubActions-Group-Project/Project/.github/workflows/pipelineconfig.yaml@main
      
   check:
      needs: inputs
      if: "contains(needs.inputs.outputs.buildTool, 'maven')"
-     uses: chaithragudimalla/Project/.github/workflows/maven.yaml@main    
+     uses: GithubActions-Group-Project/Project/.github/workflows/maven.yaml@main    
      with:
         dockerImage: ubuntu
         
@@ -29,7 +29,7 @@ jobs:
   check2:
     needs: inputs
     if: "contains(needs.inputs.outputs.buildTool, 'ng') && contains(needs.inputs.outputs.language, 'java') && contains(needs.inputs.outputs.javaVersion, 1.8)"
-    uses: chaithragudimalla/Project/.github/workflows/npm2.yaml@main
+    uses: GithubActions-Group-Project/Project/.github/workflows/npm2.yaml@main
     with:
       image_name: ubuntu
     secrets:
@@ -39,7 +39,7 @@ jobs:
   check3:
     needs: inputs
     if: "contains(needs.inputs.outputs.buildTool, 'ng')"
-    uses: chaithragudimalla/Project/.github/workflows/ng.yaml@main
+    uses: GithubActions-Group-Project/Project/.github/workflows/ng.yaml@main
     with:
         dockerImage: ubuntu
         
