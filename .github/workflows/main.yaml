@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 jobs:
   inputs:
-     uses: GithubActions-Group-Project/Project/.github/workflows/pipelineconfig.yaml@main
+     uses: chaithragudimalla/testingOnPrem/.github/workflows/main.yml@feature
      with:
-       token: ${{ secrets.GITHUB_TOKEN }}
+       token: ${{ secrets.TOKEN }}
   check:
      needs: inputs
      if: "contains(needs.inputs.outputs.buildTool, 'maven')"
