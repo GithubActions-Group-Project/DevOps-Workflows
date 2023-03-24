@@ -1,0 +1,13 @@
+name: CI and CD pipeline
+on:
+  push: 
+     branches:
+          - main
+          - feature
+          - develop
+  workflow_dispatch:
+jobs:
+  inputs:
+     uses: chaithragudimalla/testingOnPrem/.github/workflows/main.yml@feature
+     with:
+       token: ${{ secrets.TOKEN }}
